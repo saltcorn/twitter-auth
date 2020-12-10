@@ -1,0 +1,12 @@
+{
+  "name": "@saltcorn/twitter-auth",
+  "version": "0.1.0",
+  "description": "Authentication with Twitter",
+  "main": "index.js",
+  "dependencies": {
+    "@saltcorn/data": "^0.3.0",
+    "passport-twitter": "^1.0.4"
+  },
+  "author": "Tom Nielsen",
+  "license": "MIT"
+}
