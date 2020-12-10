@@ -2,7 +2,6 @@ const TwitterStrategy = require("passport-twitter").Strategy;
 const User = require("@saltcorn/data/models/user");
 const Workflow = require("@saltcorn/data/models/workflow");
 const Form = require("@saltcorn/data/models/form");
-const db = require("@saltcorn/data/db");
 
 const { getState } = require("@saltcorn/data/db/state");
 
@@ -13,7 +12,6 @@ const authentication = (config) => {
     consumerSecret: config.twitterSecret || "nosecret",
     callbackURL: `${cfg_base_url}auth/callback/twitter`,
   };
-  db.sql_log(params);
   return {
     twitter: {
       strategy: new TwitterStrategy(
