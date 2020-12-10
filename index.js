@@ -20,7 +20,9 @@ const authentication = (config) => {
           //console.log(profile);
           User.findOrCreateByAttribute("twitterId", profile.id, {
             email: "",
-          }).then((u) => cb(null, u));
+          }).then((u) => {
+            return cb(null, u.session_object);
+          });
         }
       ),
     },
