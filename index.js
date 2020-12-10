@@ -2,19 +2,22 @@ const TwitterStrategy = require("passport-twitter").Strategy;
 const User = require("@saltcorn/data/models/user");
 const Workflow = require("@saltcorn/data/models/workflow");
 const Form = require("@saltcorn/data/models/form");
+const db = require("@saltcorn/data/db");
 
 const { getState } = require("@saltcorn/data/db/state");
 
 const authentication = (config) => {
   const cfg_base_url = getState().getConfig("base_url");
+  const params = {
+    consumerKey: config.twitterKey || "nokey",
+    consumerSecret: config.twitterSecret || "nosecret",
+    callbackURL: `${cfg_base_url}auth/callback/twitter`,
+  };
+  db.sql_log(params);
   return {
     twitter: {
       strategy: new TwitterStrategy(
-        {
-          consumerKey: config.twitterKey || "nokey",
-          consumerSecret: config.twitterSecret || "nosecret",
-          callbackURL: `${cfg_base_url}auth/callback/twitter`,
-        },
+        params,
         function (token, tokenSecret, profile, cb) {
           //console.log(profile);
           User.findOrCreateByAttribute("twitterId", profile.id, {
