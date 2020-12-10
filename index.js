@@ -23,9 +23,9 @@ const authentication = (config) => {
           User.findOrCreateByAttribute("twitterId", profile.id, {
             email: "",
           }).then((u) => {
-            db.sql_log(u);
+            db.sql_log(u.session_object);
 
-            return cb(null, u);
+            return cb(null, u.session_object);
           });
         }
       ),
