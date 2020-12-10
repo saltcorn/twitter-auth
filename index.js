@@ -14,6 +14,8 @@ const authentication = (config) => {
   };
   return {
     twitter: {
+      icon: '<i class="fab fa-twitter"></i>',
+      label: "Twitter",
       strategy: new TwitterStrategy(
         params,
         function (token, tokenSecret, profile, cb) {
