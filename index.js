@@ -10,7 +10,7 @@ const authentication = (config) => {
   const params = {
     consumerKey: config.twitterKey || "nokey",
     consumerSecret: config.twitterSecret || "nosecret",
-    callbackURL: `${cfg_base_url}auth/callback/twitter`,
+    callbackURL: `${addSlash(cfg_base_url)}auth/callback/twitter`,
   };
   return {
     twitter: {
@@ -30,15 +30,26 @@ const authentication = (config) => {
     },
   };
 };
-
-const configuration_workflow = () =>
-  new Workflow({
+const addSlash = (s) => (s[s.length - 1] === "/" ? s : s + "/");
+const configuration_workflow = () => {
+  const cfg_base_url = getState().getConfig("base_url"),
+    base_url = addSlash(cfg_base_url || "http://base_url");
+  const blurb = [
+    !cfg_base_url
+      ? "You should set the 'Base URL' configration property. "
+      : "",
+    `Create a new application at the <a href="">Twitter developer portal</a>. 
+you should obtain the API key and secret, enable 3-legged OAuth, 
+and set the callback URL to ${base_url}auth/callback/twitter.`,
+  ];
+  return new Workflow({
     steps: [
       {
         name: "API keys",
         form: () =>
           new Form({
             labelCols: 3,
+            blurb,
             fields: [
               {
                 name: "twitterKey",
@@ -57,7 +68,7 @@ const configuration_workflow = () =>
       },
     ],
   });
-
+};
 module.exports = {
   sc_plugin_api_version: 1,
   authentication,
