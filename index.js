@@ -38,7 +38,7 @@ const configuration_workflow = () => {
     !cfg_base_url
       ? "You should set the 'Base URL' configration property. "
       : "",
-    `Create a new application at the <a href="">Twitter developer portal</a>. 
+    `Create a new application at the <a href="https://developer.twitter.com/">Twitter developer portal</a>. 
 you should obtain the API key and secret, enable 3-legged OAuth, 
 and set the callback URL to ${base_url}auth/callback/twitter.`,
   ];
